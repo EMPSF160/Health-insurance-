@@ -40,20 +40,26 @@
         <li><a href="#life" class="nav-link">Life</a></li>
         <li><a href="#auto" class="nav-link">Auto Service</a></li>
         <li><a href="#disability" class="nav-link">Disability</a></li>
+        
+        <!-- Mobile/Tablet Action Items inside Hamburger Menu -->
+        <li class="mobile-only-action"><button class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;" onclick="openAuthModal('signin')">Sign In</button></li>
+        <li class="mobile-only-action"><button class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;" onclick="openAuthModal('register')">Register</button></li>
+        <li class="mobile-only-action"><button class="btn btn-primary btn-glow" style="width: 100%; margin-top: 0.5rem;" onclick="openQuoteModal()">Get a Quote</button></li>
       </ul>
 
       <div class="nav-actions">
-        <div id="authNavBtns" style="display: flex; gap: 10px;">
-          <button class="btn btn-outline" onclick="openAuthModal('signin')">Sign In</button>
-          <button class="btn btn-outline" onclick="openAuthModal('register')">Register</button>
+        <div class="desktop-actions" style="display: flex; align-items: center; gap: 10px;">
+          <div id="authNavBtns" style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" onclick="openAuthModal('signin')">Sign In</button>
+            <button class="btn btn-outline" onclick="openAuthModal('register')">Register</button>
+          </div>
+          <button class="btn btn-primary btn-glow" onclick="openQuoteModal()">Get a Quote</button>
         </div>
         
         <div id="userBadgeNav" class="user-badge">
           <i class="fa-solid fa-circle-user"></i>
           <span id="userNameDisplay">Alex Carter</span>
         </div>
-
-        <button class="btn btn-primary btn-glow" onclick="openQuoteModal()">Get a Quote</button>
 
         <button class="mobile-toggle" aria-label="Toggle Mobile Menu">
           <i class="fa-solid fa-bars"></i>

@@ -418,6 +418,16 @@ h1, h2, h3, h4, h5, h6 {
   gap: 1rem;
 }
 
+.mobile-only-action {
+  display: none !important;
+}
+
+.desktop-actions {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+
 .mobile-toggle {
   display: none;
   background: none;
@@ -1383,6 +1393,15 @@ footer {
 
   .mobile-toggle {
     display: block;
+  }
+
+  .mobile-only-action {
+    display: block !important;
+    width: 100%;
+  }
+
+  .desktop-actions {
+    display: none !important;
   }
 }
 
