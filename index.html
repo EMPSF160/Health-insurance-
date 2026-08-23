@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexShield | Health & Insurance Brokerage</title>
+  <meta name="description" content="Premier Health, Life, Auto Service, and Disability Insurance Brokerage. Instant tailored quotes and 24/7 dedicated advisor support.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main Custom Stylesheet -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- 3D Three.js WebGL Background Container -->
+  <div id="three-canvas-container"></div>
+
+  <!-- Global Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Apex<span class="text-gradient">Shield</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+        <li><a href="#life" class="nav-link">Life</a></li>
+        <li><a href="#auto" class="nav-link">Auto Service</a></li>
+        <li><a href="#disability" class="nav-link">Disability</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div id="authNavBtns" style="display: flex; gap: 10px;">
+          <button class="btn btn-outline" onclick="openAuthModal('signin')">Sign In</button>
+          <button class="btn btn-outline" onclick="openAuthModal('register')">Register</button>
+        </div>
+        
+        <div id="userBadgeNav" class="user-badge">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="userNameDisplay">Alex Carter</span>
+        </div>
+
+        <button class="btn btn-primary btn-glow" onclick="openQuoteModal()">Get a Quote</button>
+
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT VIEWS (SPA Routing) -->
+  <main id="app-viewport">
+
+    <!-- ====================================================================
+         PAGE 1: HOME PAGE (#home - 6 SECTIONS)
+         ==================================================================== -->
+    <div id="home" class="page-view active">
+      
+      <!-- Section 1: Hero Section (Policygenius Inspired) -->
+      <section class="hero-section">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <div class="glass-badge hero-badge">
+              <i class="fa-solid fa-star" style="color: var(--accent-gold);"></i> Rated 4.9/5 on Trustpilot & Google (4,000+ Reviews)
+            </div>
+            <h1 class="hero-title">
+              The Easy Way to Compare & <span>Buy Insurance Online.</span>
+            </h1>
+            <p class="hero-desc">
+              Compare free quotes side-by-side from 50+ top-rated insurers. Save time and money with expert unbiased guidance.
+            </p>
+            
+            <!-- Policygenius-Style Quick Product Launcher Cards -->
+            <div class="pg-category-grid">
+              <a href="javascript:void(0)" onclick="openQuoteModal('life')" class="pg-category-card">
+                <div class="pg-cat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="pg-cat-info">
+                  <h4>Life Insurance</h4>
+                  <p>Term & Whole quotes</p>
+                </div>
+                <i class="fa-solid fa-chevron-right pg-cat-arrow"></i>
+              </a>
+
+              <a href="javascript:void(0)" onclick="openQuoteModal('health')" class="pg-category-card">
+                <div class="pg-cat-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                <div class="pg-cat-info">
+                  <h4>Health & Dental</h4>
+                  <p>Individual & family plans</p>
+                </div>
+                <i class="fa-solid fa-chevron-right pg-cat-arrow"></i>
+              </a>
+
+              <a href="javascript:void(0)" onclick="openQuoteModal('auto')" class="pg-category-card">
+                <div class="pg-cat-icon"><i class="fa-solid fa-car-side"></i></div>
+                <div class="pg-cat-info">
+                  <h4>Auto Service</h4>
+                  <p>Save up to $600/yr</p>
+                </div>
+                <i class="fa-solid fa-chevron-right pg-cat-arrow"></i>
+              </a>
+
+              <a href="javascript:void(0)" onclick="openQuoteModal('disability')" class="pg-category-card">
+                <div class="pg-cat-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="pg-cat-info">
+                  <h4>Disability</h4>
+                  <p>Protect 70% of salary</p>
+                </div>
+                <i class="fa-solid fa-chevron-right pg-cat-arrow"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-shield-card glass-card">
+              <img src="IMAGE/geralt-family-3501026_1920.jpg" alt="Protected Family" class="hero-visual-img">
+              <h3>Independent Policy Engine</h3>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                Guaranteed lowest rates allowed by law. 100% free with zero pushy sales calls.
+              </p>
+              <div class="live-indicator">
+                <i class="fa-solid fa-circle-check" style="color: var(--primary-emerald);"></i> 50+ Top Insurers Compare Here
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Live Stats & Top Insurers Grid -->
+      <section class="stats-section">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" data-target="2.4" data-prefix="$" data-suffix="B+">$0B+</div>
+              <div class="stat-label">Claims Settled Promptly</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="99.4" data-suffix="%">0%</div>
+              <div class="stat-label">Client Satisfaction Rating</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="450" data-suffix="k+">0k+</div>
+              <div class="stat-label">Active Insured Families</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="15" data-suffix=" Mins">0 Mins</div>
+              <div class="stat-label">Average Quote Delivery</div>
+            </div>
+          </div>
+
+          <!-- Policygenius-Style Carrier Partner Grid -->
+          <div style="margin-top: 3rem; text-align: center;">
+            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.2rem; font-weight: 700;">
+              COMPARE REAL-TIME QUOTES FROM TOP-RATED CARRIERS
+            </div>
+            <div class="carrier-logo-grid">
+              <div class="carrier-item"><i class="fa-solid fa-building-columns"></i> Prudential</div>
+              <div class="carrier-item"><i class="fa-solid fa-shield-heart"></i> Mutual of Omaha</div>
+              <div class="carrier-item"><i class="fa-solid fa-water"></i> Pacific Life</div>
+              <div class="carrier-item"><i class="fa-solid fa-landmark"></i> Lincoln Financial</div>
+              <div class="carrier-item"><i class="fa-solid fa-car"></i> Progressive</div>
+              <div class="carrier-item"><i class="fa-solid fa-globe"></i> Transamerica</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: How Policygenius / ApexShield Works (3 Easy Steps) -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Simple 3-Step Process</div>
+            <h2 class="section-title">How ApexShield Works</h2>
+            <p class="section-description" style="margin-left: auto; margin-right: auto;">
+              Shopping for insurance shouldn't be confusing. We make comparing, buying, and managing policies effortless.
+            </p>
+          </div>
+
+          <div class="pg-steps-grid">
+            <div class="pg-step-card glass-card">
+              <img src="IMAGE/1Jw6fkGg1i_WNyBYu3tL3q74Kcu50UCu04OcF7sydbwG5uqV_EJiPvtMPp7EsG2SP2lP_IF9lCEjfUyRwYnmmMsX-HRuM4p7OViU0akxO1oe_bCSmL54p8DuI0kcRWvVeoj3ZQBtP32Qv7iIbnU5PXu4r1Q6CqhGTG-y4uCV0_sK7rJbCvYK.jpg" alt="Step 1" class="card-img-full">
+              <div class="card-body">
+                <div class="pg-step-badge">1</div>
+                <h3>Compare Free Quotes</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.8rem;">
+                  Answer a few quick questions to see real-time quotes from America's top-rated insurance carriers side-by-side.
+                </p>
+              </div>
+            </div>
+
+            <div class="pg-step-card glass-card">
+              <img src="IMAGE/8ICbUYOvIx3ZIeW5V5fjUexNqjVH093R4bEJMXs8fe1JTfyi0B9zK5K9ZMeO2ncIKX-BVuvwb1AHAeaLL8G6HZYP8mgeZ3SEqyEIpswyBXlQt6z49LpXnhDyavTUtB39f1xps6T8Vgw6eUeytEueBFv98ykThOkeHRFHeFxIK0cA8mQiGpip.jpg" alt="Step 2" class="card-img-full">
+              <div class="card-body">
+                <div class="pg-step-badge">2</div>
+                <h3>Choose Your Coverage</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.8rem;">
+                  Pick the exact policy that fits your family's budget. Our licensed advisors offer 100% unbiased guidance.
+                </p>
+              </div>
+            </div>
+
+            <div class="pg-step-card glass-card">
+              <img src="IMAGE/DBxfBJn_TOc-6EDwxkv4OGQmrsbPhVYilBlP2P1GKYKdEpnNCAA54wM-ReITcevxOAf49asluMFoHVDPs2JjcItGbE5gNwf2ktd9CuouVS9r3fz3WBEZkfKmeUb2RcqR6Lil4aq9lStpb-JIEhO5kHDGe4IRVNKI3SJQ5SmtB25UDeYjgyDX.jpg" alt="Step 3" class="card-img-full">
+              <div class="card-body">
+                <div class="pg-step-badge">3</div>
+                <h3>Apply & Manage Online</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.8rem;">
+                  Complete your application online in minutes. Enjoy lifetime concierge support and 24/7 digital policy access.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Core Solutions Overview Grid -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Comprehensive Portfolios</div>
+            <h2 class="section-title">Tailored Insurance Solutions</h2>
+            <p class="section-description" style="margin-left: auto; margin-right: auto;">
+              Explore our four core pillars designed to protect your family's health, lifestyle, vehicles, and long-term financial security.
+            </p>
+          </div>
+
+          <div class="solutions-grid">
+            <!-- Health Card -->
+            <div class="solution-card glass-card">
+              <img src="IMAGE/blickpixel-health-card-491714_1920.jpg" alt="Health Insurance" class="card-img-full">
+              <div class="card-body">
+                <h3 class="solution-title">Health Insurance</h3>
+                <p class="solution-desc">
+                  Comprehensive medical, dental, and vision protection with nationwide PPO & EPO network coverage.
+                </p>
+                <ul class="solution-features">
+                  <li><i class="fa-solid fa-check"></i> Zero Deductible Options</li>
+                  <li><i class="fa-solid fa-check"></i> Prescription Drug Care</li>
+                  <li><i class="fa-solid fa-check"></i> Telehealth Unlimited</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;" onclick="openQuoteModal('health')">Get Health Quote</button>
+              </div>
+            </div>
+
+            <!-- Life Card -->
+            <div class="solution-card glass-card">
+              <img src="IMAGE/mohamed_hassan-family-10156021_1920.jpg" alt="Life Coverage" class="card-img-full">
+              <div class="card-body">
+                <h3 class="solution-title">Life Coverage</h3>
+                <p class="solution-desc">
+                  Secure your family's financial legacy with flexible Term, Whole, and Universal Life policies.
+                </p>
+                <ul class="solution-features">
+                  <li><i class="fa-solid fa-check"></i> Up to $5M Instant Issue</li>
+                  <li><i class="fa-solid fa-check"></i> Living Benefit Riders</li>
+                  <li><i class="fa-solid fa-check"></i> Tax-Free Payouts</li>
+                </ul>
+                <a href="#life" class="btn btn-outline" style="width: 100%;">Explore Life Plans</a>
+              </div>
+            </div>
+
+            <!-- Auto Service Card -->
+            <div class="solution-card glass-card">
+              <img src="IMAGE/sandjaya-business-8999629_1920.jpg" alt="Auto Service" class="card-img-full">
+              <div class="card-body">
+                <h3 class="solution-title">Auto Service</h3>
+                <p class="solution-desc">
+                  Premium auto, collision, liability, and roadside assistance coverage for uninterrupted mobility.
+                </p>
+                <ul class="solution-features">
+                  <li><i class="fa-solid fa-check"></i> 24/7 Roadside Assistance</li>
+                  <li><i class="fa-solid fa-check"></i> Accident Forgiveness</li>
+                  <li><i class="fa-solid fa-check"></i> Rental Car Replacement</li>
+                </ul>
+                <a href="#auto" class="btn btn-outline" style="width: 100%;">Explore Auto Plans</a>
+              </div>
+            </div>
+
+            <!-- Disability Card -->
+            <div class="solution-card glass-card">
+              <img src="IMAGE/u_p66g98oss8-disability-8122197_1920.jpg" alt="Disability Protection" class="card-img-full">
+              <div class="card-body">
+                <h3 class="solution-title">Disability Protection</h3>
+                <p class="solution-desc">
+                  Replace up to 70% of your income in case of illness or injury with Short and Long-Term Disability plans.
+                </p>
+                <ul class="solution-features">
+                  <li><i class="fa-solid fa-check"></i> Own-Occupation Guarantee</li>
+                  <li><i class="fa-solid fa-check"></i> Non-Cancelable Policies</li>
+                  <li><i class="fa-solid fa-check"></i> Inflation Adjustment</li>
+                </ul>
+                <a href="#disability" class="btn btn-outline" style="width: 100%;">Explore Disability</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Quick Rate Estimator Tool -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Real-Time Estimator</div>
+            <h2 class="section-title">Calculate Your Monthly Premium</h2>
+            <p class="section-description" style="margin-left: auto; margin-right: auto;">
+              Use our interactive rate slider to get a instant estimate tailored to your age and desired coverage amount.
+            </p>
+          </div>
+
+          <div class="estimator-box">
+            <div class="estimator-grid">
+              <div class="estimator-controls">
+                <div class="form-group" style="margin-bottom: 1.8rem;">
+                  <label class="form-label">Select Coverage Type</label>
+                  <select id="policyTypeSelect" class="form-select">
+                    <option value="health">Comprehensive Health Insurance</option>
+                    <option value="life">Term / Whole Life Insurance</option>
+                    <option value="auto">Auto Service & Liability</option>
+                    <option value="disability">Disability Income Protection</option>
+                  </select>
+                </div>
+
+                <div class="range-group">
+                  <div class="range-label">
+                    <span>Desired Coverage Amount</span>
+                    <span id="coverageValText" class="range-val">$250,000</span>
+                  </div>
+                  <input type="range" id="coverageRange" class="custom-range" min="50000" max="1000000" step="25000" value="250000">
+                </div>
+
+                <div class="range-group">
+                  <div class="range-label">
+                    <span>Applicant Age</span>
+                    <span id="ageValText" class="range-val">35 yrs</span>
+                  </div>
+                  <input type="range" id="ageRange" class="custom-range" min="18" max="75" step="1" value="35">
+                </div>
+              </div>
+
+              <div class="estimate-result-card">
+                <div class="glass-badge"><i class="fa-solid fa-bolt"></i> Instant Quote Estimate</div>
+                <div class="price-display">
+                  <span id="quickEstimatedPrice">$148</span><span class="price-period">/ mo</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                  Includes full preventive care, emergency ER visits, and zero-deductible prescription benefits.
+                </p>
+                <button class="btn btn-emerald" style="width: 100%;" onclick="openQuoteModal()">Lock In This Rate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Why Choose ApexShield Grid -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Brokerage Excellence</div>
+            <h2 class="section-title">Why 450,000+ Clients Choose ApexShield</h2>
+            <p class="section-description" style="margin-left: auto; margin-right: auto;">
+              We combine cutting-edge insurance technology with deep human advisory expertise.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature-card glass-card">
+              <img src="IMAGE/J5zHw9O9X9-feX6MhE5vCx3kUotd9_arcFd2r1W1ZBDylYIlYm7a6MLuvguEam5Mn2PX1ojKPdxzBjYYu8abv-AinF2s83Nlr9r0hDuZcyTBeMbrzNvBD3MGli-_U22ESK77ogVhQ0db_pcInCXbBEbjPXjWvKYIVxrpzJjC-61GjyjZQVFO.jpg" alt="Concierge Support" class="card-img-full">
+              <div class="card-body">
+                <h3>24/7 Dedicated Concierge</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Direct access to personal insurance advisors who advocate for your claims 365 days a year.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/O1d_LaG8rkprXP64RlxlUwVbccfkNWcSQbB0JVcDA8GvGcf8aQbfih5bZxmz3EfdH5TYITl3weM3ShT837qFl92E6jujUJFnkchCV-14jsdSHdA1t-rwoelfA0jpUyXsZE8H4AXQoIgiKXSTGAYK-_ehmhCYzzLwoamv9-iSl7rhojqNA_Tw.jpg" alt="AI Risk Matching" class="card-img-full">
+              <div class="card-body">
+                <h3>AI Risk Matching Engine</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Scans 50+ tier-1 insurance carriers to find optimal coverage rates tailored specifically for you.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/SZ7gC9i9o6jZpcONhfWOVDjyDV2awnkEUdDRJjFvJsOkBklQsBYOeZpwKJEVNESX2i93j7KfOAzdZnucurmtCaAl20S661YqvbsCSddGwwM6JsQpPuz0iTx0Jzx_gvOm4sPayUff9tFwdoeXzxn7QJobQJw_MabsO-vDqGG-DFADiEK3JRgv.jpg" alt="Digital Claims" class="card-img-full">
+              <div class="card-body">
+                <h3>Rapid Digital Claims</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Submit claims via smartphone in under 2 minutes with automated payout processing.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/geraldoswald62-blood-pressure-monitor-1749577_1920.jpg" alt="Nationwide Network" class="card-img-full">
+              <div class="card-body">
+                <h3>Nationwide Care Network</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Access over 1.2 million healthcare specialists and accredited medical facilities across the US.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/jennyfriedrichs-medicine-3337005_1920.jpg" alt="Zero Deductibles" class="card-img-full">
+              <div class="card-body">
+                <h3>Zero Deductible Options</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Customizable policy riders that eliminate out-of-pocket expenses for emergency treatment.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/stevepb-vitamin-b-871135_1920.jpg" alt="Rate Lock" class="card-img-full">
+              <div class="card-body">
+                <h3>Guaranteed Rate Lock</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Lock in your annual premium rates without unexpected mid-term price hikes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Testimonials & Consultation CTA -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Verified Feedback</div>
+            <h2 class="section-title">What Our Policyholders Say</h2>
+          </div>
+
+          <div class="testimonial-grid">
+            <div class="testimonial-card glass-card">
+              <img src="IMAGE/3pp_YcLsWS-01e-3sNZmKLVYRG637lp1tnhtDZFsIw4lrmQ8tM2vgmkzZHTwSADFk_ikgUvKi5UJzAgokX1AH_6tTP-70EkPh5_t1FARrRkSVM4qrHQRl59oAvqPjanLx2pFLQgHR-h-e7fpBiplc2KZQ8Lx9NDYqW-hD6xGit3M5UqsfCYP.jpg" alt="Elena Martinez" class="card-img-full">
+              <div class="card-body">
+                <div class="stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote-text">
+                  "ApexShield saved our family over $3,400 annually on combined Health and Life coverage while giving us broader doctor access!"
+                </p>
+                <div class="client-profile">
+                  <div class="client-info">
+                    <h4>Elena Martinez</h4>
+                    <p>Health & Life Client (Austin, TX)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card glass-card">
+              <img src="IMAGE/D-hrBnhSt9z7i-Lj0OLptCDRvR_3oFJJXGDwsVSMjZt3zWS8Qvkf_FkSyEedH4tTN4VhopZ2TlupW-fNxzrUMDD1AG775ZVsI4mOvb3tPAiK5g8obo6BGpuXCGp2sJJcSZXRCJD4lugLCMMK-cQW_39cPs9GZjUreF1r3DQWfEOCzrVgs_LJ.jpg" alt="David Reynolds" class="card-img-full">
+              <div class="card-body">
+                <div class="stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote-text">
+                  "When my car was damaged in a storm, ApexShield's Auto Service advisor handled everything with zero stress. Car delivered in 3 days!"
+                </p>
+                <div class="client-profile">
+                  <div class="client-info">
+                    <h4>David Reynolds</h4>
+                    <p>Auto Service Policyholder (Denver, CO)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card glass-card">
+              <img src="IMAGE/V1d2khji6NPKHyVqxjiwupguYRsZELZU3AeqQJn7TXOwdurA226Jpz4ZIk5unMXUqpqfVPjpbQRRGFxeGXp7wGpfG6CGoPgjFTYSIUQrBKANtaafhDcRSOW6rcHPijWvi1zMGu1nzF4yELs3iyI91tTidX2v3jLEWPAqtjWP7nCXxHArCrE3.jpg" alt="Sarah Jenkins" class="card-img-full">
+              <div class="card-body">
+                <div class="stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="quote-text">
+                  "Their Disability Protection gave me complete peace of mind as a self-employed consultant. Top tier support and guidance!"
+                </p>
+                <div class="client-profile">
+                  <div class="client-info">
+                    <h4>Sarah Jenkins</h4>
+                    <p>Disability Client (Seattle, WA)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <!-- CTA Banner -->
+          <div class="cta-banner">
+            <h2>Ready to Secure Your Tailored Protection Plan?</h2>
+            <p style="color: rgba(255,255,255,0.85); font-size: 1.1rem; margin-bottom: 2rem;">
+              Connect with a licensed brokerage specialist today for a free 15-minute policy audit.
+            </p>
+            <button class="btn btn-primary btn-glow" onclick="openQuoteModal()">Get Your Quote Now</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <!-- ====================================================================
+         PAGE 2: ABOUT US PAGE (#about - 4 SECTIONS)
+         ==================================================================== -->
+    <div id="about" class="page-view">
+      
+      <!-- Section 1: Brand Vision & Header -->
+      <section class="about-hero text-center">
+        <div class="container">
+          <div class="glass-badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-compass"></i> Established 2012</div>
+          <h1 class="section-title" style="font-size: 3rem;">
+            Redefining Insurance Brokerage Through <span class="text-gradient">Trust & Technology</span>
+          </h1>
+          <p class="section-description" style="margin: 0 auto 1.5rem;">
+            ApexShield was founded with a single mission: to eliminate insurance complexity, advocate fiercely for policyholders, and provide transparent, high-value coverage across Health, Life, Auto, and Disability insurance.
+          </p>
+          <img src="IMAGE/marionbrun-doctor-650534_1920.jpg" alt="About Us Medical Advisory" class="page-hero-img">
+        </div>
+      </section>
+
+      <!-- Section 2: Core Values & Ethics -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Foundational Pillars</div>
+            <h2 class="section-title">Our Core Commitments</h2>
+          </div>
+
+          <div class="values-grid">
+            <div class="glass-card">
+              <img src="IMAGE/BdcqksPeiAWLS2Y3XU7PHb7GsnFd3FnzN8lmZr_9a1ZmQi-fnx46qblN0DlMoZsJ9Wu_GpuAuMr4VVfnr26Te27Uac-Y5gG_xLkc2TdPk-coUm5iYK7sm_6haToHuataZM552cXm9autNX_1NpjQuQz_OFju_KGabUz7m4PYLT2HG4Y5K0SB.jpg" alt="Fiduciary Integrity" class="card-img-full">
+              <div class="card-body">
+                <h3>Fiduciary Integrity</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  We work exclusively for you — not the insurance companies. Our recommendations are 100% unbiased.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <img src="IMAGE/-UZQa0nHdHzbffphSIuCH7j47MdL48err2LSpOF-GYOUYqPezBtFO_BXGq1ccBAKFEH_X6MQOO4o43ssVyhJqYJzAuwL-If5HG2_Ycl-pn1J5Zpw-z_dwl3VJYczVHN0Fd-Ik-LXj8PiDYDFcUF7Veryh8h_FszCFUwO3FFH6sMvGG2m9Xof.jpg" alt="100% Transparency" class="card-img-full">
+              <div class="card-body">
+                <h3>100% Transparency</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  No hidden fees, fine print surprises, or unexpected price hikes. Everything is clearly documented upfront.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <img src="IMAGE/-oaMhWzwCZguQwsFDY8aUDvFt5LvnFxo7p7f6UBnDshcqJdWWzu1-NnCdz0WyK2KdbFwXx7gsvfhwfbuIVoHOfDcb26L4eva6DP27AZjfR3IRt9rI0X6cnGl8d8Sfy37629DMYiVnHCRPtfjQ7ExG8hhxW0mEOVqn9BaGBuk_APw94QpVSte.jpg" alt="Relentless Advocacy" class="card-img-full">
+              <div class="card-body">
+                <h3>Relentless Advocacy</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  If a claim is contested, our legal and medical advisory teams intervene directly on your behalf.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <img src="IMAGE/9u7PJQvOf97TcNj9iQZOwiO3Cuto-jCQjAWeL655lSLdw-SbMqdvFY009yvAEbbMxFfxYrRcf1IvWBngI537VqqJbwgQEBzdFjZyjzl-UzrIcGCnZft0UcTzFKKqqS4lPOMTZRdojyQedfvFsyKUiVDECf9JvlGuP1tnF4HNqMM5xGbh (1).jpg" alt="Innovation First" class="card-img-full">
+              <div class="card-body">
+                <h3>Innovation First</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Pioneering AI risk matching and digital claims processing for rapid, hassle-free policy management.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Executive Leadership Team -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Leadership & Vision</div>
+            <h2 class="section-title">Meet Our Executive Team</h2>
+          </div>
+
+          <div class="team-grid">
+            <div class="team-card glass-card">
+              <img src="IMAGE/marionbrun-doctor-650534_1920.jpg" alt="Marcus Vance" class="card-img-full">
+              <div class="card-body text-center">
+                <h3>Marcus Vance</h3>
+                <p style="color: var(--primary-cyan); font-weight: 600; font-size: 0.9rem;">Founder & CEO</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                  20+ years of insurance brokerage leadership; former FINRA board advisor.
+                </p>
+              </div>
+            </div>
+
+            <div class="team-card glass-card">
+              <img src="IMAGE/sandjaya-business-8999629_1920.jpg" alt="Dr. Claire Sterling" class="card-img-full">
+              <div class="card-body text-center">
+                <h3>Dr. Claire Sterling</h3>
+                <p style="color: var(--primary-emerald); font-weight: 600; font-size: 0.9rem;">Chief Medical Officer</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                  Oversees Health insurance network integration and medical claim advocacy.
+                </p>
+              </div>
+            </div>
+
+            <div class="team-card glass-card">
+              <img src="IMAGE/iMgWDqGGMK6RO8c0499b2Mh12sfu_IrSSkKeUbPDy6A-tAyOUOIoDyPwIVFdROdXNA38QOL95q2sQXpsTs4j5RWVhVavX3SCZXDWFZT3h_ej2XvGCwq5O93nE8fO9tuogqiaZqfjV8ii0Jao2Q3xlPjmjMlouJDY3Pwvp9frqQmWQYhFc8ZG.jpg" alt="Julian Thorne" class="card-img-full">
+              <div class="card-body text-center">
+                <h3>Julian Thorne</h3>
+                <p style="color: var(--primary-blue); font-weight: 600; font-size: 0.9rem;">Head of Underwriting</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                  Specialist in high-value Life and Disability income preservation policies.
+                </p>
+              </div>
+            </div>
+
+            <div class="team-card glass-card">
+              <img src="IMAGE/xx3e_l1P_mRQjIju3K64s-h7cS8Z56gHewXEGvvIBxSaTiK9A5DV7IzK7WNMbOgN-v6lppzjYEcDWU2Q_JLmCUOrm6s4tOI6XS8VpPAPQED4dJTuJ-N2ZNwOY-PbbzA30XxtjH91e9uJjeISPiNzCr7A9RWDdSqQmxkAVviCWgmxp_98Qy9HfKgj0Gk2GSiL.jpg" alt="Vanessa Zhang" class="card-img-full">
+              <div class="card-body text-center">
+                <h3>Vanessa Zhang</h3>
+                <p style="color: var(--accent-purple); font-weight: 600; font-size: 0.9rem;">Head of Auto Services</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem;">
+                  Directs nationwide automotive repair network partnerships & rapid roadside dispatch.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Milestones & Industry Accreditations -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Our Journey</div>
+            <h2 class="section-title">Milestones of Trust</h2>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">2012</div>
+              <div class="timeline-content glass-card">
+                <h4>ApexShield Founded</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">
+                  Launched in Chicago as an independent health insurance advisory firm.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">2017</div>
+              <div class="timeline-content glass-card">
+                <h4>Expansion into Life & Auto Services</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">
+                  Broadened portfolio to include term life, collision coverage, and 24/7 roadside network.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-content glass-card">
+                <h4>AI Engine & Disability Suite</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">
+                  Introduced proprietary carrier matching algorithm and comprehensive disability income protection.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">2026</div>
+              <div class="timeline-content glass-card">
+                <h4>$2.4 Billion Claims Milestone</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;">
+                  Surpassed 450,000 active policyholders with a 99.4% client satisfaction index nationwide.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ====================================================================
+         PAGE 3: LIFE INSURANCE PAGE (#life - 4 SECTIONS)
+         ==================================================================== -->
+    <div id="life" class="page-view">
+      
+      <!-- Section 1: Life Coverage Hero & Policy Types -->
+      <section class="about-hero text-center">
+        <div class="container">
+          <div class="glass-badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-heart"></i> Life & Legacy Protection</div>
+          <h1 class="section-title" style="font-size: 3rem;">
+            Secure Your Family's <span class="text-gradient">Financial Legacy</span>
+          </h1>
+          <p class="section-description" style="margin: 0 auto 1.5rem;">
+            Whether you need affordable Term Life protection or Whole Life wealth preservation, ApexShield provides clear, tax-free financial safety nets.
+          </p>
+          <img src="IMAGE/mohamed_hassan-family-10156021_1920.jpg" alt="Life Protection Family" class="page-hero-img">
+        </div>
+      </section>
+
+      <!-- Section 2: Interactive Plan Matrix -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Policy Comparison</div>
+            <h2 class="section-title">Life Insurance Tiers</h2>
+          </div>
+
+          <div class="plan-matrix">
+            <!-- Term Life -->
+            <div class="plan-card glass-card">
+              <img src="IMAGE/oe59aRdf3Wn8gEZ-xa30ZnfCrtYSiNAgEKfDVGwpf8A5Wdn_rDJGdFa7SenZsi3oKc40DFOwjccj1zQ1DFE0qP2acLaG57Pblcl93XU7XESOZy1K8tUag06dRW3EG5MyUj_RvsSnUcKNxwGhhO3FsiIYHaGdBouVseNdKueW0eCmKDtxld0a.jpg" alt="Term Life" class="card-img-full">
+              <div class="card-body">
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Term Life</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Ideal for temporary coverage (10-30 years) with maximum affordability.</p>
+                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-cyan); margin-bottom: 1.5rem;">$25<span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;"> / mo</span></div>
+                <ul class="solution-features" style="margin-bottom: 2rem;">
+                  <li><i class="fa-solid fa-check"></i> Fixed Premiums</li>
+                  <li><i class="fa-solid fa-check"></i> $100k to $3M Coverage</li>
+                  <li><i class="fa-solid fa-check"></i> Terminal Illness Rider</li>
+                  <li><i class="fa-solid fa-check"></i> Convertible to Permanent</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;" onclick="openQuoteModal('life')">Choose Term Life</button>
+              </div>
+            </div>
+
+            <!-- Whole Life (Featured) -->
+            <div class="plan-card glass-card featured">
+              <div class="featured-tag">MOST POPULAR</div>
+              <img src="IMAGE/mohamed_hassan-family-10156021_1920.jpg" alt="Whole Life" class="card-img-full">
+              <div class="card-body">
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Whole Life</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Lifetime coverage with guaranteed cash value accumulation.</p>
+                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-emerald); margin-bottom: 1.5rem;">$85<span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;"> / mo</span></div>
+                <ul class="solution-features" style="margin-bottom: 2rem;">
+                  <li><i class="fa-solid fa-check"></i> Lifetime Guaranteed Benefit</li>
+                  <li><i class="fa-solid fa-check"></i> Tax-Deferred Cash Growth</li>
+                  <li><i class="fa-solid fa-check"></i> Policy Loan Access</li>
+                  <li><i class="fa-solid fa-check"></i> Dividend Eligible</li>
+                </ul>
+                <button class="btn btn-emerald" style="width: 100%;" onclick="openQuoteModal('life')">Choose Whole Life</button>
+              </div>
+            </div>
+
+            <!-- Universal Life -->
+            <div class="plan-card glass-card">
+              <img src="IMAGE/geralt-family-3501026_1920.jpg" alt="Universal Life" class="card-img-full">
+              <div class="card-body">
+                <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Universal Life</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Flexible premiums and adjustable death benefits for wealth growth.</p>
+                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 1.5rem;">$140<span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;"> / mo</span></div>
+                <ul class="solution-features" style="margin-bottom: 2rem;">
+                  <li><i class="fa-solid fa-check"></i> Flexible Payment Schedule</li>
+                  <li><i class="fa-solid fa-check"></i> Market Index Growth Options</li>
+                  <li><i class="fa-solid fa-check"></i> Estate Planning Integration</li>
+                  <li><i class="fa-solid fa-check"></i> Premium Living Benefits</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;" onclick="openQuoteModal('life')">Choose Universal</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Financial Coverage Need Estimator -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="estimator-box">
+            <div class="text-center" style="margin-bottom: 2rem;">
+              <div class="section-subtitle">Smart Life Calculator</div>
+              <h2>Estimate Your Required Life Coverage</h2>
+            </div>
+
+            <div class="estimator-grid">
+              <div>
+                <div class="form-group">
+                  <label class="form-label">Annual Household Income ($)</label>
+                  <input type="number" id="lifeIncomeInput" class="form-input" value="75000" step="5000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Mortgage / Debt Balance ($)</label>
+                  <input type="number" id="lifeMortgageInput" class="form-input" value="200000" step="10000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Number of Dependent Children</label>
+                  <input type="number" id="lifeKidsInput" class="form-input" value="2" min="0" max="8">
+                </div>
+              </div>
+
+              <div class="estimate-result-card">
+                <p style="color: var(--text-muted);">Recommended Protection</p>
+                <div id="lifeResultCoverage" style="font-size: 3.2rem; font-weight: 800; color: var(--primary-cyan); font-family: var(--font-heading); margin: 1rem 0;">$1,150,000</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Calculated based on 10x income replacement + debt payout + $100k per child college fund.</p>
+                <button class="btn btn-primary" onclick="openQuoteModal('life')">Get Life Quote Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Claims Guarantee & Support -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container text-center">
+          <div class="section-subtitle">Beneficiary Protection</div>
+          <h2 class="section-title">Fast 48-Hour Beneficiary Payouts</h2>
+          <p class="section-description" style="margin: 0 auto 2.5rem;">
+            During tough times, we streamline beneficiary processing so loved ones receive financial support rapidly without administrative hurdles.
+          </p>
+          <button class="btn btn-outline" onclick="openQuoteModal('life')">Speak with Life Specialist</button>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ====================================================================
+         PAGE 4: AUTO SERVICE PAGE (#auto - 4 SECTIONS)
+         ==================================================================== -->
+    <div id="auto" class="page-view">
+      
+      <!-- Section 1: Auto Coverage Hero -->
+      <section class="about-hero text-center">
+        <div class="container">
+          <div class="glass-badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-car"></i> Automotive & Roadside Resilience</div>
+          <h1 class="section-title" style="font-size: 3rem;">
+            Complete Vehicle Protection & <span class="text-gradient">Auto Service Network</span>
+          </h1>
+          <p class="section-description" style="margin: 0 auto 1.5rem;">
+            From comprehensive collision insurance to 24/7 emergency roadside dispatch and rental vehicle guarantees, drive with absolute confidence.
+          </p>
+          <img src="IMAGE/sandjaya-business-8999629_1920.jpg" alt="Auto Service Protection" class="page-hero-img">
+        </div>
+      </section>
+
+      <!-- Section 2: Auto Service Benefits Grid -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Driver Advantages</div>
+            <h2 class="section-title">Premium Auto Features</h2>
+          </div>
+
+          <div class="auto-benefits-grid">
+            <div class="glass-card">
+              <img src="IMAGE/sandjaya-business-8999629_1920.jpg" alt="24/7 Roadside Towing" class="card-img-full">
+              <div class="card-body">
+                <h3>24/7 Roadside Towing</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Flat tire assistance, battery jump-starts, lockout service, and unlimited towing within 100 miles.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <img src="IMAGE/SZ7gC9i9o6jZpcONhfWOVDjyDV2awnkEUdDRJjFvJsOkBklQsBYOeZpwKJEVNESX2i93j7KfOAzdZnucurmtCaAl20S661YqvbsCSddGwwM6JsQpPuz0iTx0Jzx_gvOm4sPayUff9tFwdoeXzxn7QJobQJw_MabsO-vDqGG-DFADiEK3JRgv.jpg" alt="Instant Rental Car" class="card-img-full">
+              <div class="card-body">
+                <h3>Instant Rental Car Replacement</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  A premium rental vehicle is delivered directly to your location while your vehicle is in repair.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <img src="IMAGE/O1d_LaG8rkprXP64RlxlUwVbccfkNWcSQbB0JVcDA8GvGcf8aQbfih5bZxmz3EfdH5TYITl3weM3ShT837qFl92E6jujUJFnkchCV-14jsdSHdA1t-rwoelfA0jpUyXsZE8H4AXQoIgiKXSTGAYK-_ehmhCYzzLwoamv9-iSl7rhojqNA_Tw.jpg" alt="Accident Forgiveness" class="card-img-full">
+              <div class="card-body">
+                <h3>Accident Forgiveness</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Your premium rate stays protected and won't increase after your first eligible accident claim.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Vehicle Risk & Discount Finder Checklist -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="estimator-box">
+            <div class="text-center" style="margin-bottom: 2rem;">
+              <div class="section-subtitle">Savings Finder</div>
+              <h2>Check Eligible Driver Discounts</h2>
+            </div>
+
+            <div class="discount-grid">
+              <label class="glass-card" style="padding: 1.2rem; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <input type="checkbox" checked style="accent-color: var(--primary-cyan); transform: scale(1.3);">
+                <div>
+                  <strong>Safe Driver (3+ Years Claim-Free)</strong>
+                  <div style="font-size: 0.8rem; color: var(--primary-emerald);">Save up to 25%</div>
+                </div>
+              </label>
+
+              <label class="glass-card" style="padding: 1.2rem; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <input type="checkbox" checked style="accent-color: var(--primary-cyan); transform: scale(1.3);">
+                <div>
+                  <strong>Multi-Vehicle Bundle</strong>
+                  <div style="font-size: 0.8rem; color: var(--primary-emerald);">Save up to 20%</div>
+                </div>
+              </label>
+
+              <label class="glass-card" style="padding: 1.2rem; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <input type="checkbox" style="accent-color: var(--primary-cyan); transform: scale(1.3);">
+                <div>
+                  <strong>Anti-Theft & Telematics Installed</strong>
+                  <div style="font-size: 0.8rem; color: var(--primary-emerald);">Save up to 15%</div>
+                </div>
+              </label>
+
+              <label class="glass-card" style="padding: 1.2rem; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <input type="checkbox" style="accent-color: var(--primary-cyan); transform: scale(1.3);">
+                <div>
+                  <strong>Low Annual Mileage (&lt; 7,500 mi)</strong>
+                  <div style="font-size: 0.8rem; color: var(--primary-emerald);">Save up to 18%</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="text-center" style="margin-top: 2.5rem;">
+              <button class="btn btn-primary" onclick="openQuoteModal('auto')">Apply Discounts & Get Auto Quote</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Auto Service FAQ Accordion -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Frequently Asked Questions</div>
+            <h2 class="section-title">Auto Coverage Answers</h2>
+          </div>
+
+          <div class="accordion-container">
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>What is covered under ApexShield Auto Service Roadside Assistance?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                Our Roadside package covers 24/7 nationwide towing up to 100 miles, emergency fuel delivery, battery jumpstarts, flat tire changes, and vehicle lockout services with zero out-of-pocket costs.
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>How does Accident Forgiveness work?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                After maintaining a clean driving record for 3 consecutive years with ApexShield, your policy automatically qualifies for Accident Forgiveness. If you experience an eligible accident, your premium rate will not increase.
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span>Can I select my own repair shop after an accident?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+              <div class="accordion-body">
+                Yes! While we maintain a certified network of over 15,000 preferred repair facilities with guaranteed repair quality, you are free to choose any licensed repair shop.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ====================================================================
+         PAGE 5: DISABILITY INSURANCE PAGE (#disability - 4 SECTIONS)
+         ==================================================================== -->
+    <div id="disability" class="page-view">
+      
+      <!-- Section 1: Disability Income Protection Hero -->
+      <section class="about-hero text-center">
+        <div class="container">
+          <div class="glass-badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-user-shield"></i> Income Preservation</div>
+          <h1 class="section-title" style="font-size: 3rem;">
+            Protect Your Paycheck with <span class="text-gradient">Disability Coverage</span>
+          </h1>
+          <p class="section-description" style="margin: 0 auto 1.5rem;">
+            Your ability to earn an income is your most valuable financial asset. ApexShield Disability insurance replaces up to 70% of your earnings if injury or illness prevents you from working.
+          </p>
+          <img src="IMAGE/stevepb-wheelchair-1595802_1920.jpg" alt="Disability Income Protection" class="page-hero-img">
+        </div>
+      </section>
+
+      <!-- Section 2: Income Payout Benefit Simulator -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Payout Simulator</div>
+            <h2 class="section-title">Calculate Your Monthly Income Benefit</h2>
+          </div>
+
+          <div class="disability-sim-box">
+            <div class="range-group">
+              <div class="range-label">
+                <span>Current Annual Salary</span>
+                <span id="disabilitySalaryText" class="range-val">$60,000</span>
+              </div>
+              <input type="range" id="disabilitySalaryRange" class="custom-range" min="30000" max="250000" step="5000" value="60000">
+            </div>
+
+            <div class="estimate-result-card" style="margin-top: 2rem;">
+              <p style="color: var(--text-muted);">Estimated Monthly Payout Benefit</p>
+              <div id="disabilityMonthlyPayout" style="font-size: 3.5rem; font-weight: 800; color: var(--primary-emerald); font-family: var(--font-heading); margin: 1rem 0;">$3,250</div>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                Tax-free income replacement payout starting after your selected elimination period (30, 60, or 90 days).
+              </p>
+              <button class="btn btn-emerald" onclick="openQuoteModal('disability')">Lock In Disability Coverage</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Policy Features & Key Riders Grid -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="text-center">
+            <div class="section-subtitle">Policy Guarantees</div>
+            <h2 class="section-title">Key Disability Benefits</h2>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature-card glass-card">
+              <img src="IMAGE/u_p66g98oss8-disability-8122197_1920.jpg" alt="Own-Occupation Coverage" class="card-img-full">
+              <div class="card-body">
+                <h3>Own-Occupation Coverage</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Pays full benefits if you are unable to perform the specific duties of your current specialized profession.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/stevepb-wheelchair-1595802_1920.jpg" alt="Non-Cancelable Guarantee" class="card-img-full">
+              <div class="card-body">
+                <h3>Non-Cancelable Guarantee</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Your premium rate cannot be increased and your policy cannot be canceled as long as premiums are paid on time.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-card glass-card">
+              <img src="IMAGE/J5zHw9O9X9-feX6MhE5vCx3kUotd9_arcFd2r1W1ZBDylYIlYm7a6MLuvguEam5Mn2PX1ojKPdxzBjYYu8abv-AinF2s83Nlr9r0hDuZcyTBeMbrzNvBD3MGli-_U22ESK77ogVhQ0db_pcInCXbBEbjPXjWvKYIVxrpzJjC-61GjyjZQVFO.jpg" alt="COLA Inflation Guard" class="card-img-full">
+              <div class="card-body">
+                <h3>Cost of Living Adjustment (COLA)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Monthly payout benefits increase annually to match inflation during long-term disability claims.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Specialist Consultation Request Form -->
+      <section class="section-padding" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+          <div class="estimator-box" style="max-width: 650px; margin: 0 auto;">
+            <div class="text-center" style="margin-bottom: 2rem;">
+              <div class="section-subtitle">Expert Advisory</div>
+              <h2>Request a Personal Disability Consultation</h2>
+            </div>
+
+            <form onsubmit="event.preventDefault(); alert('Consultation request submitted! A disability specialist will contact you within 2 hours.');">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" placeholder="e.g. Jordan Miller" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone / Email</label>
+                <input type="text" class="form-input" placeholder="jordan@example.com or (555) 019-2831" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Profession / Industry</label>
+                <input type="text" class="form-input" placeholder="e.g. Software Engineer, Surgeon, Attorney" required>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Schedule Advisory Session</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ====================================================================
+       MODAL 1: SIGN IN / REGISTER OVERLAY MODAL
+       ==================================================================== -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-header">
+        <h2 id="authModalTitle" class="modal-title">Sign In to ApexShield</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Access your policy dashboard and direct claims manager</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="signin">Sign In</button>
+        <button class="auth-tab" data-tab="register">Register Account</button>
+      </div>
+
+      <!-- Sign In View -->
+      <div id="signinFormView" class="auth-form-view">
+        <form id="signinForm">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="signinEmail" class="form-input" placeholder="alex@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-pwd">
+              <input type="password" id="signinPwd" class="form-input" placeholder="••••••••" required>
+              <span class="pwd-toggle"><i class="fa-solid fa-eye"></i></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign In Now</button>
+        </form>
+      </div>
+
+      <!-- Register View -->
+      <div id="registerFormView" class="auth-form-view" style="display: none;">
+        <form id="registerForm">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="regName" class="form-input" placeholder="Alex Carter" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="regEmail" class="form-input" placeholder="alex@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Create Password</label>
+            <div class="form-input-pwd">
+              <input type="password" id="regPwd" class="form-input" placeholder="••••••••" required>
+              <span class="pwd-toggle"><i class="fa-solid fa-eye"></i></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-emerald" style="width: 100%; margin-top: 1rem;">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====================================================================
+       MODAL 2: MULTI-STEP QUOTE WIZARD MODAL
+       ==================================================================== -->
+  <div id="quoteModal" class="modal-overlay">
+    <div class="modal-content quote-wizard-modal">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-header">
+        <h2 class="modal-title">Get Your Tailored Quote</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Fast & personalized carrier rate matching</p>
+      </div>
+
+      <!-- Step Indicators -->
+      <div class="wizard-steps">
+        <div class="wizard-step-item active" data-step="1">
+          <div class="step-circle">1</div>
+          <span class="step-label">Coverage</span>
+        </div>
+        <div class="wizard-step-item" data-step="2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Details</span>
+        </div>
+        <div class="wizard-step-item" data-step="3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Tier</span>
+        </div>
+        <div class="wizard-step-item" data-step="4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Summary</span>
+        </div>
+      </div>
+
+      <form id="wizardForm">
+        <!-- Step 1: Policy Selection -->
+        <div id="wizardStep1" class="wizard-step-content active">
+          <div class="form-group">
+            <label class="form-label">Primary Policy Type</label>
+            <select id="quoteTypeSelect" class="form-select">
+              <option value="health">Health Insurance</option>
+              <option value="life">Life Insurance</option>
+              <option value="auto">Auto Service Protection</option>
+              <option value="disability">Disability Protection</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Zip Code / Location</label>
+            <input type="text" class="form-input" placeholder="e.g. 90210" required value="90210">
+          </div>
+        </div>
+
+        <!-- Step 2: Personal Details -->
+        <div id="wizardStep2" class="wizard-step-content">
+          <div class="form-group">
+            <label class="form-label">Primary Applicant Age</label>
+            <input type="number" id="quoteAgeInput" class="form-input" value="32" min="18" max="80" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tobacco / Nicotine Use in past 2 years?</label>
+            <select class="form-select">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 3: Tier Selection -->
+        <div id="wizardStep3" class="wizard-step-content">
+          <label class="form-label" style="margin-bottom: 1rem;">Select Coverage Level</label>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <label class="glass-card" style="padding: 1rem; text-align: center; cursor: pointer;">
+              <input type="radio" name="quoteTier" value="basic">
+              <div style="font-weight: 700; margin-top: 5px;">Basic</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Standard deductible</div>
+            </label>
+
+            <label class="glass-card" style="padding: 1rem; text-align: center; cursor: pointer; border-color: var(--primary-cyan);">
+              <input type="radio" name="quoteTier" value="standard" checked>
+              <div style="font-weight: 700; margin-top: 5px; color: var(--primary-cyan);">Standard</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Balanced coverage</div>
+            </label>
+
+            <label class="glass-card" style="padding: 1rem; text-align: center; cursor: pointer;">
+              <input type="radio" name="quoteTier" value="premium">
+              <div style="font-weight: 700; margin-top: 5px; color: var(--primary-emerald);">Premium</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Zero deductible</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 4: Summary -->
+        <div id="wizardStep4" class="wizard-step-content">
+          <div class="estimate-result-card" style="padding: 2rem;">
+            <div class="glass-badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-circle-check"></i> Quote Ready!</div>
+            <h3>Your Estimated Monthly Premium</h3>
+            <div id="summaryMonthlyPrice" style="font-size: 3.5rem; font-weight: 800; color: var(--primary-emerald); font-family: var(--font-heading); margin: 0.8rem 0;">$135</div>
+            <div id="summaryAnnualPrice" style="color: var(--primary-cyan); font-weight: 600; margin-bottom: 1.5rem;">$1,512 / yr (Save 8% annually)</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">A copy of this official quote breakdown has been generated for your record.</p>
+            <button type="button" class="btn btn-emerald" style="width: 100%;" onclick="$('#quoteModal').removeClass('active'); alert('Thank you! An ApexShield advisor will connect with you shortly.');">Accept & Bind Policy</button>
+          </div>
+        </div>
+
+        <!-- Wizard Navigation Buttons -->
+        <div class="wizard-nav-btns">
+          <button type="button" id="wizardPrevBtn" class="btn btn-outline" style="display: none;">Back</button>
+          <button type="button" id="wizardNextBtn" class="btn btn-primary" style="margin-left: auto;">Continue</button>
+          <button type="submit" id="wizardSubmitBtn" class="btn btn-emerald" style="display: none; margin-left: auto;">Generate Quote</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="brand-logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Apex<span class="text-gradient">Shield</span></span>
+          </a>
+          <p>
+            Premier Health, Life, Auto Service, and Disability Insurance Brokerage committed to financial security, rapid claims advocacy, and zero-stress policy management.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-icon" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Insurance Lines</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Health Insurance</a></li>
+            <li><a href="#life">Life Insurance</a></li>
+            <li><a href="#auto">Auto Service Protection</a></li>
+            <li><a href="#disability">Disability Insurance</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#about">Our Leadership</a></li>
+            <li><a href="#about">Regulatory Licenses</a></li>
+            <li><a href="#about">Careers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">24/7 Assistance</h4>
+          <ul class="footer-links">
+            <li><i class="fa-solid fa-phone" style="color: var(--primary-cyan); margin-right: 6px;"></i> 1-800-555-APEX</li>
+            <li><i class="fa-solid fa-envelope" style="color: var(--primary-cyan); margin-right: 6px;"></i> support@apexshield.com</li>
+            <li><i class="fa-solid fa-location-dot" style="color: var(--primary-cyan); margin-right: 6px;"></i> 500 N Michigan Ave, Chicago, IL</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ApexShield Insurance Brokerage LLC. All Rights Reserved. Products and services subject to local state regulatory approval.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- External JavaScript Libraries (jQuery & Three.js CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom Scripts -->
+  <script src="js/three-bg.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
