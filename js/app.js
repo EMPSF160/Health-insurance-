@@ -1,6 +1,114 @@
 /* ==========================================================================
-   ApexShield - Main Application Logic & Interactivity (jQuery & ES6)
+   ApexShield - Main Application Logic & Interactivity (Vanilla JS & jQuery)
    ========================================================================== */
+
+// Global navigation functions accessible everywhere
+window.toggleMobileMenu = function (e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const navLinks = document.getElementById('mainNavLinks') || document.querySelector('.nav-links');
+  if (!navLinks) return;
+
+  if (navLinks.classList.contains('active')) {
+    window.closeMobileMenu();
+  } else {
+    window.openMobileMenu();
+  }
+};
+
+window.openMobileMenu = function () {
+  const navLinks = document.getElementById('mainNavLinks') || document.querySelector('.nav-links');
+  const navbar = document.querySelector('.navbar');
+  const toggleBtn = document.querySelector('.mobile-toggle');
+  if (navLinks) {
+    navLinks.classList.add('active');
+    navLinks.style.setProperty('display', 'flex', 'important');
+  }
+  if (navbar) navbar.classList.add('menu-open');
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    const icon = toggleBtn.querySelector('i');
+    if (icon) {
+      icon.className = 'fa-solid fa-xmark';
+    }
+  }
+};
+
+window.closeMobileMenu = function () {
+  const navLinks = document.getElementById('mainNavLinks') || document.querySelector('.nav-links');
+  const navbar = document.querySelector('.navbar');
+  const toggleBtn = document.querySelector('.mobile-toggle');
+  if (navLinks) {
+    navLinks.classList.remove('active');
+    navLinks.style.removeProperty('display');
+  }
+  if (navbar) navbar.classList.remove('menu-open');
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    const icon = toggleBtn.querySelector('i');
+    if (icon) {
+      icon.className = 'fa-solid fa-bars';
+    }
+  }
+};
+
+// Global Modal Open/Close Controls
+window.closeModals = function () {
+  const modals = document.querySelectorAll('.modal-overlay');
+  modals.forEach(m => {
+    m.classList.remove('active');
+    m.style.removeProperty('display');
+  });
+};
+
+window.switchAuthTab = function (mode) {
+  const tabs = document.querySelectorAll('.auth-tab');
+  const signinView = document.getElementById('signinFormView');
+  const regView = document.getElementById('registerFormView');
+  const title = document.getElementById('authModalTitle');
+
+  tabs.forEach(t => t.classList.remove('active'));
+
+  if (mode === 'register') {
+    const regTab = document.querySelector('.auth-tab[data-tab="register"]');
+    if (regTab) regTab.classList.add('active');
+    if (signinView) signinView.style.display = 'none';
+    if (regView) regView.style.display = 'block';
+    if (title) title.innerText = 'Create an Account';
+  } else {
+    const signinTab = document.querySelector('.auth-tab[data-tab="signin"]');
+    if (signinTab) signinTab.classList.add('active');
+    if (signinView) signinView.style.display = 'block';
+    if (regView) regView.style.display = 'none';
+    if (title) title.innerText = 'Sign In to ApexShield';
+  }
+};
+
+window.openAuthModal = function (mode = 'signin') {
+  window.closeMobileMenu();
+  const authModal = document.getElementById('authModal');
+  if (authModal) {
+    authModal.classList.add('active');
+    authModal.style.setProperty('display', 'flex', 'important');
+  }
+  window.switchAuthTab(mode);
+};
+
+window.openQuoteModal = function (preselectType = 'health') {
+  window.closeMobileMenu();
+  const quoteModal = document.getElementById('quoteModal');
+  if (quoteModal) {
+    quoteModal.classList.add('active');
+    quoteModal.style.setProperty('display', 'flex', 'important');
+  }
+  const typeSelect = document.getElementById('quoteTypeSelect');
+  if (typeSelect) typeSelect.value = preselectType;
+  if (typeof window.resetQuoteWizard === 'function') {
+    window.resetQuoteWizard();
+  }
+};
 
 $(document).ready(function () {
   // Global State
@@ -16,9 +124,9 @@ $(document).ready(function () {
   };
 
   /* ------------------------------------------------------------------------
-     1. SPA Routing System
+     1. SPA Routing & Navigation System
      ------------------------------------------------------------------------ */
-  function navigateTo(pageId) {
+  window.navigateTo = function (pageId) {
     // Hide all page views
     $('.page-view').removeClass('active');
     
@@ -35,27 +143,49 @@ $(document).ready(function () {
     // Scroll to top smooth
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Close mobile nav if open
-    $('.nav-links').removeClass('active');
+    // Close mobile nav
+    window.closeMobileMenu();
+
+    // Close all open modals
+    window.closeModals();
 
     // Trigger page-specific animations
-    if (targetPage === 'home') {
+    if (targetPage === 'home' && typeof animateCounters === 'function') {
       animateCounters();
     }
-  }
+  };
 
   // Hash change listener & initial load
   function handleRoute() {
     const hash = window.location.hash.replace('#', '') || 'home';
-    navigateTo(hash);
+    window.navigateTo(hash);
   }
 
   $(window).on('hashchange', handleRoute);
   handleRoute(); // Run on initial load
 
-  // Mobile menu toggle
-  $('.mobile-toggle').on('click', function () {
-    $('.nav-links').toggleClass('active');
+  // Mobile menu toggle button (jQuery listener as backup to inline onclick)
+  $('.mobile-toggle').on('click', function (e) {
+    window.toggleMobileMenu(e);
+  });
+
+  // Clicking any link or action button inside the menu closes it
+  $('.nav-links').on('click', 'a, button', function () {
+    window.closeMobileMenu();
+  });
+
+  // Close mobile menu when clicking outside navbar
+  $(document).on('click', function (e) {
+    if (!$(e.target).closest('.navbar').length) {
+      window.closeMobileMenu();
+    }
+  });
+
+  // Auto-close mobile menu if viewport resized to desktop
+  $(window).on('resize', function () {
+    if ($(window).width() > 1024) {
+      window.closeMobileMenu();
+    }
   });
 
   // Sticky Navbar shadow on scroll
@@ -132,16 +262,10 @@ $(document).ready(function () {
   /* ------------------------------------------------------------------------
      4. Modals (Sign In / Register / Get a Quote)
      ------------------------------------------------------------------------ */
-  // Open Auth Modal (Sign In / Register)
-  window.openAuthModal = function (mode = 'signin') {
-    $('#authModal').addClass('active');
-    switchAuthTab(mode);
-  };
-
-  // Close Modals
+  // Close Modals on close button or overlay backdrop click
   $('.modal-close, .modal-overlay').on('click', function (e) {
-    if (e.target === this || $(this).hasClass('modal-close')) {
-      $('.modal-overlay').removeClass('active');
+    if (e.target === this || $(this).hasClass('modal-close') || $(this).closest('.modal-close').length) {
+      window.closeModals();
     }
   });
 
@@ -150,25 +274,9 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 
-  // Switch Auth Tabs
-  function switchAuthTab(mode) {
-    $('.auth-tab').removeClass('active');
-    $('.auth-form-view').hide();
-
-    if (mode === 'register') {
-      $('.auth-tab[data-tab="register"]').addClass('active');
-      $('#registerFormView').show();
-      $('#authModalTitle').text('Create an Account');
-    } else {
-      $('.auth-tab[data-tab="signin"]').addClass('active');
-      $('#signinFormView').show();
-      $('#authModalTitle').text('Sign In to ApexShield');
-    }
-  }
-
   $('.auth-tab').on('click', function () {
     const tab = $(this).attr('data-tab');
-    switchAuthTab(tab);
+    window.switchAuthTab(tab);
   });
 
   // Password Visibility Toggle
@@ -219,11 +327,9 @@ $(document).ready(function () {
      ------------------------------------------------------------------------ */
   let currentStep = 1;
 
-  window.openQuoteModal = function (preselectType = 'health') {
-    $('#quoteTypeSelect').val(preselectType);
+  window.resetQuoteWizard = function () {
     currentStep = 1;
     updateWizardStep();
-    $('#quoteModal').addClass('active');
   };
 
   function updateWizardStep() {

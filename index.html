@@ -34,7 +34,7 @@
         <span>Apex<span class="text-gradient">Shield</span></span>
       </a>
 
-      <ul class="nav-links">
+      <ul class="nav-links" id="mainNavLinks">
         <li><a href="#home" class="nav-link active">Home</a></li>
         <li><a href="#about" class="nav-link">About Us</a></li>
         <li><a href="#life" class="nav-link">Life</a></li>
@@ -61,7 +61,7 @@
           <span id="userNameDisplay">Alex Carter</span>
         </div>
 
-        <button class="mobile-toggle" aria-label="Toggle Mobile Menu">
+        <button class="mobile-toggle" aria-label="Toggle Mobile Menu" aria-expanded="false" aria-controls="mainNavLinks" onclick="toggleMobileMenu(event)">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -132,13 +132,18 @@
 
           <div class="hero-visual">
             <div class="hero-shield-card glass-card">
-              <img src="IMAGE/geralt-family-3501026_1920.jpg" alt="Protected Family" class="hero-visual-img">
-              <h3>Independent Policy Engine</h3>
-              <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
-                Guaranteed lowest rates allowed by law. 100% free with zero pushy sales calls.
-              </p>
-              <div class="live-indicator">
-                <i class="fa-solid fa-circle-check" style="color: var(--primary-emerald);"></i> 50+ Top Insurers Compare Here
+              <video class="hero-visual-video" autoplay muted loop playsinline poster="IMAGE/geralt-family-3501026_1920.jpg">
+                <source src="IMAGE/143378-782178671_medium.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="hero-shield-body">
+                <h3>Independent Policy Engine</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                  Guaranteed lowest rates allowed by law. 100% free with zero pushy sales calls.
+                </p>
+                <div class="live-indicator">
+                  <i class="fa-solid fa-circle-check" style="color: var(--primary-emerald);"></i> 50+ Top Insurers Compare Here
+                </div>
               </div>
             </div>
           </div>
@@ -1127,6 +1132,10 @@
       <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
 
       <div class="modal-header">
+        <a href="#home" class="brand-logo modal-brand-logo" onclick="navigateTo('home'); closeModals();" title="Return to ApexShield Home">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Apex<span class="text-gradient">Shield</span></span>
+        </a>
         <h2 id="authModalTitle" class="modal-title">Sign In to ApexShield</h2>
         <p style="color: var(--text-muted); font-size: 0.9rem;">Access your policy dashboard and direct claims manager</p>
       </div>
@@ -1187,6 +1196,10 @@
       <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
 
       <div class="modal-header">
+        <a href="#home" class="brand-logo modal-brand-logo" onclick="navigateTo('home'); closeModals();" title="Return to ApexShield Home">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Apex<span class="text-gradient">Shield</span></span>
+        </a>
         <h2 class="modal-title">Get Your Tailored Quote</h2>
         <p style="color: var(--text-muted); font-size: 0.9rem;">Fast & personalized carrier rate matching</p>
       </div>
