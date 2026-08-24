@@ -74,14 +74,26 @@ window.switchAuthTab = function (mode) {
   if (mode === 'register') {
     const regTab = document.querySelector('.auth-tab[data-tab="register"]');
     if (regTab) regTab.classList.add('active');
-    if (signinView) signinView.style.display = 'none';
-    if (regView) regView.style.display = 'block';
+    if (signinView) {
+      signinView.style.setProperty('display', 'none', 'important');
+      signinView.classList.remove('active');
+    }
+    if (regView) {
+      regView.style.setProperty('display', 'block', 'important');
+      regView.classList.add('active');
+    }
     if (title) title.innerText = 'Create an Account';
   } else {
     const signinTab = document.querySelector('.auth-tab[data-tab="signin"]');
     if (signinTab) signinTab.classList.add('active');
-    if (signinView) signinView.style.display = 'block';
-    if (regView) regView.style.display = 'none';
+    if (signinView) {
+      signinView.style.setProperty('display', 'block', 'important');
+      signinView.classList.add('active');
+    }
+    if (regView) {
+      regView.style.setProperty('display', 'none', 'important');
+      regView.classList.remove('active');
+    }
     if (title) title.innerText = 'Sign In to ApexShield';
   }
 };
@@ -110,6 +122,70 @@ window.openQuoteModal = function (preselectType = 'health') {
   }
 };
 
+// Global Scroll Functions
+window.scrollToTopSmooth = function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+window.scrollToBottomSmooth = function () {
+  window.scrollTo({ top: document.body.scrollHeight || document.documentElement.scrollHeight, behavior: 'smooth' });
+};
+
+window.toggleScrollTopBottom = function () {
+  const currentY = window.pageYOffset || document.documentElement.scrollTop;
+  if (currentY > 300) {
+    window.scrollToTopSmooth();
+  } else {
+    window.scrollToBottomSmooth();
+  }
+};
+
+// Multi-Step Quote Wizard Global Controllers
+let currentWizardStep = 1;
+
+window.resetQuoteWizard = function () {
+  currentWizardStep = 1;
+  window.updateWizardStep();
+};
+
+window.updateWizardStep = function () {
+  $('.wizard-step-item').removeClass('active completed');
+  $('.wizard-step-content').removeClass('active');
+
+  for (let i = 1; i <= 4; i++) {
+    const $item = $(`.wizard-step-item[data-step="${i}"]`);
+    if (i < currentWizardStep) {
+      $item.addClass('completed');
+      $item.find('.step-circle').html('<i class="fa-solid fa-check"></i>');
+    } else if (i === currentWizardStep) {
+      $item.addClass('active');
+      $item.find('.step-circle').html(i);
+      $(`#wizardStep${i}`).addClass('active');
+    } else {
+      $item.find('.step-circle').html(i);
+    }
+  }
+
+  // Prev / Next button visibility
+  $('#wizardPrevBtn').toggle(currentWizardStep > 1 && currentWizardStep < 4);
+  $('#wizardNextBtn').toggle(currentWizardStep < 3);
+  $('#wizardSubmitBtn').toggle(currentWizardStep === 3);
+};
+
+window.quoteNextStep = function () {
+  if (currentWizardStep < 3) {
+    currentWizardStep++;
+    window.updateWizardStep();
+  }
+};
+
+window.quotePrevStep = function () {
+  if (currentWizardStep > 1) {
+    currentWizardStep--;
+    window.updateWizardStep();
+  }
+};
+
 $(document).ready(function () {
   // Global State
   const state = {
@@ -118,7 +194,7 @@ $(document).ready(function () {
       type: 'health',
       age: 30,
       zip: '',
-      tier: 'premium',
+      tier: 'standard',
       addons: []
     }
   };
@@ -150,8 +226,8 @@ $(document).ready(function () {
     window.closeModals();
 
     // Trigger page-specific animations
-    if (targetPage === 'home' && typeof animateCounters === 'function') {
-      animateCounters();
+    if (targetPage === 'home') {
+      triggerCounterAnimation();
     }
   };
 
@@ -164,10 +240,7 @@ $(document).ready(function () {
   $(window).on('hashchange', handleRoute);
   handleRoute(); // Run on initial load
 
-  // Mobile menu toggle button (jQuery listener as backup to inline onclick)
-  $('.mobile-toggle').on('click', function (e) {
-    window.toggleMobileMenu(e);
-  });
+  // Mobile menu toggle button handled directly via window.toggleMobileMenu with stopPropagation
 
   // Clicking any link or action button inside the menu closes it
   $('.nav-links').on('click', 'a, button', function () {
@@ -175,8 +248,8 @@ $(document).ready(function () {
   });
 
   // Close mobile menu when clicking outside navbar
-  $(document).on('click', function (e) {
-    if (!$(e.target).closest('.navbar').length) {
+  $(document).on('click touchstart', function (e) {
+    if (!$(e.target).closest('.navbar').length && !$(e.target).closest('.mobile-toggle').length) {
       window.closeMobileMenu();
     }
   });
@@ -188,12 +261,22 @@ $(document).ready(function () {
     }
   });
 
-  // Sticky Navbar shadow on scroll
+  // Sticky Navbar background & Floating scroll button state
   $(window).on('scroll', function () {
-    if ($(this).scrollTop() > 40) {
+    const scrollPos = $(this).scrollTop();
+    if (scrollPos > 40) {
       $('.navbar').addClass('scrolled');
     } else {
       $('.navbar').removeClass('scrolled');
+    }
+
+    const $scrollBtn = $('#globalScrollBtn');
+    if (scrollPos > 300) {
+      $scrollBtn.find('i').removeClass('fa-arrow-down').addClass('fa-arrow-up');
+      $scrollBtn.attr('title', 'Scroll to Top');
+    } else {
+      $scrollBtn.find('i').removeClass('fa-arrow-up').addClass('fa-arrow-down');
+      $scrollBtn.attr('title', 'Scroll to Bottom');
     }
   });
 
@@ -201,7 +284,8 @@ $(document).ready(function () {
      2. Counter Animation System
      ------------------------------------------------------------------------ */
   let countersAnimated = false;
-  function animateCounters() {
+
+  function triggerCounterAnimation() {
     if (countersAnimated) return;
     countersAnimated = true;
 
@@ -212,7 +296,7 @@ $(document).ready(function () {
       const suffix = $this.attr('data-suffix') || '';
 
       $({ countNum: 0 }).animate({ countNum: targetVal }, {
-        duration: 2000,
+        duration: 1800,
         easing: 'swing',
         step: function () {
           if (targetVal % 1 !== 0) {
@@ -231,6 +315,9 @@ $(document).ready(function () {
       });
     });
   }
+
+  // Trigger on load for home
+  setTimeout(triggerCounterAnimation, 300);
 
   /* ------------------------------------------------------------------------
      3. Quick Premium Rate Estimator (Home Page)
@@ -263,7 +350,7 @@ $(document).ready(function () {
      4. Modals (Sign In / Register / Get a Quote)
      ------------------------------------------------------------------------ */
   // Close Modals on close button or overlay backdrop click
-  $('.modal-close, .modal-overlay').on('click', function (e) {
+  $(document).on('click', '.modal-close, .modal-overlay', function (e) {
     if (e.target === this || $(this).hasClass('modal-close') || $(this).closest('.modal-close').length) {
       window.closeModals();
     }
@@ -280,7 +367,7 @@ $(document).ready(function () {
   });
 
   // Password Visibility Toggle
-  $('.pwd-toggle').on('click', function () {
+  $(document).on('click', '.pwd-toggle', function () {
     const input = $(this).siblings('input');
     const icon = $(this).find('i');
     if (input.attr('type') === 'password') {
@@ -323,51 +410,14 @@ $(document).ready(function () {
   }
 
   /* ------------------------------------------------------------------------
-     5. Multi-Step Quote Wizard Modal
+     5. Multi-Step Quote Wizard Modal Listeners
      ------------------------------------------------------------------------ */
-  let currentStep = 1;
-
-  window.resetQuoteWizard = function () {
-    currentStep = 1;
-    updateWizardStep();
-  };
-
-  function updateWizardStep() {
-    $('.wizard-step-item').removeClass('active completed');
-    $('.wizard-step-content').removeClass('active');
-
-    for (let i = 1; i <= 4; i++) {
-      const $item = $(`.wizard-step-item[data-step="${i}"]`);
-      if (i < currentStep) {
-        $item.addClass('completed');
-        $item.find('.step-circle').html('<i class="fa-solid fa-check"></i>');
-      } else if (i === currentStep) {
-        $item.addClass('active');
-        $item.find('.step-circle').html(i);
-        $(`#wizardStep${i}`).addClass('active');
-      } else {
-        $item.find('.step-circle').html(i);
-      }
-    }
-
-    // Prev / Next button visibility
-    $('#wizardPrevBtn').toggle(currentStep > 1 && currentStep < 4);
-    $('#wizardNextBtn').toggle(currentStep < 3);
-    $('#wizardSubmitBtn').toggle(currentStep === 3);
-  }
-
   $('#wizardNextBtn').on('click', function () {
-    if (currentStep < 3) {
-      currentStep++;
-      updateWizardStep();
-    }
+    window.quoteNextStep();
   });
 
   $('#wizardPrevBtn').on('click', function () {
-    if (currentStep > 1) {
-      currentStep--;
-      updateWizardStep();
-    }
+    window.quotePrevStep();
   });
 
   $('#wizardForm').on('submit', function (e) {
@@ -391,8 +441,8 @@ $(document).ready(function () {
     $('#summaryMonthlyPrice').text('$' + finalMonthly);
     $('#summaryAnnualPrice').text('$' + finalAnnual + ' / yr');
 
-    currentStep = 4;
-    updateWizardStep();
+    currentWizardStep = 4;
+    window.updateWizardStep();
   });
 
   /* ------------------------------------------------------------------------
@@ -434,4 +484,7 @@ $(document).ready(function () {
 
   $('#disabilitySalaryRange').on('input change', calcDisabilityBenefit);
   calcDisabilityBenefit();
+
+  // Initialize wizard on start
+  window.updateWizardStep();
 });
