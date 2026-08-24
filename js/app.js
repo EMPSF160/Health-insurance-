@@ -145,6 +145,9 @@ let currentWizardStep = 1;
 
 window.resetQuoteWizard = function () {
   currentWizardStep = 1;
+  $('input[name="quoteTier"][value="standard"]').prop('checked', true);
+  $('.quote-tier-card').removeClass('active');
+  $('.quote-tier-card[data-tier="standard"]').addClass('active');
   window.updateWizardStep();
 };
 
@@ -418,6 +421,12 @@ $(document).ready(function () {
 
   $('#wizardPrevBtn').on('click', function () {
     window.quotePrevStep();
+  });
+
+  // Quote Tier Card Selection Handler
+  $('input[name="quoteTier"]').on('change', function () {
+    $('.quote-tier-card').removeClass('active');
+    $(this).closest('.quote-tier-card').addClass('active');
   });
 
   $('#wizardForm').on('submit', function (e) {
